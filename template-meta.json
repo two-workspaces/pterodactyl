@@ -5,5 +5,6 @@
   "category": "Other",
   "image": "https://raw.githubusercontent.com/pterodactyl/panel/v1.15.2/public/favicons/android-chrome-512x512.png",
   "card_desc": "The official Pterodactyl Panel 1.15 for managing Minecraft and other game servers, with MariaDB, Redis, an admin account created on first boot and a guide to connecting your Wings nodes.",
-  "deploy_marker": "two-workspaces/pterodactyl"
+  "deploy_marker": "two-workspaces/pterodactyl",
+  "id": "fa4b14cd-ff91-4191-b8a4-d1471ce47c71"
 }

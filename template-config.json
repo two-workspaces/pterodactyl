@@ -5,7 +5,7 @@
       "icon": "https://raw.githubusercontent.com/pterodactyl/panel/v1.15.2/public/favicons/android-chrome-512x512.png",
       "name": "Panel",
       "source": {
-        "image": "ghcr.io/two-workspaces/pterodactyl:IMAGE_TAG"
+        "image": "ghcr.io/two-workspaces/pterodactyl:96856a6"
       },
       "deploy": {
         "healthcheckPath": "/auth/login",
@@ -125,8 +125,13 @@
         },
         "MAIL_MAILER": {
           "isOptional": false,
-          "description": "log writes emails to the log instead of sending them. Set up SMTP later under Admin → Settings → Mail.",
+          "description": "log writes emails to the log instead of sending them. Set up SMTP later under Admin \u00e2\u2020\u2019 Settings \u00e2\u2020\u2019 Mail.",
           "defaultValue": "log"
+        },
+        "LOG_CHANNEL": {
+          "isOptional": false,
+          "description": "Sends the panel's logs to Railway's log view. Do not change: the default log file ends up owned by root and breaks the panel.",
+          "defaultValue": "stderr"
         },
         "TRUSTED_PROXIES": {
           "isOptional": false,
