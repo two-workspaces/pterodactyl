@@ -1,0 +1,228 @@
+{
+  "buckets": {},
+  "services": {
+    "917506b4-c408-4f8e-87f0-1c3f195ed724": {
+      "icon": "https://raw.githubusercontent.com/pterodactyl/panel/v1.15.2/public/favicons/android-chrome-512x512.png",
+      "name": "Panel",
+      "source": {
+        "image": "ghcr.io/two-workspaces/pterodactyl:IMAGE_TAG"
+      },
+      "deploy": {
+        "healthcheckPath": "/auth/login",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "variables": {
+        "ADMIN_EMAIL": {
+          "isOptional": false,
+          "description": "Email of the first admin account, created on first boot. You log in with it.",
+          "defaultValue": ""
+        },
+        "ADMIN_USERNAME": {
+          "isOptional": false,
+          "description": "Username of the first admin account.",
+          "defaultValue": "admin"
+        },
+        "ADMIN_PASSWORD": {
+          "isOptional": false,
+          "description": "Password of the first admin account. Generated for you; change it in the panel after logging in.",
+          "defaultValue": "${{secret(20, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}"
+        },
+        "APP_URL": {
+          "isOptional": false,
+          "description": "Public address of the panel. Wings nodes call back to it. Change it to https://your-domain after adding a custom domain.",
+          "defaultValue": "https://${{RAILWAY_PUBLIC_DOMAIN}}"
+        },
+        "APP_TIMEZONE": {
+          "isOptional": false,
+          "description": "Timezone for schedules and logs, e.g. Europe/Warsaw.",
+          "defaultValue": "UTC"
+        },
+        "APP_KEY": {
+          "isOptional": false,
+          "description": "Encrypts stored secrets such as node tokens. Never change it after the first boot.",
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}"
+        },
+        "HASHIDS_SALT": {
+          "isOptional": false,
+          "description": "Salt for the short server ids in URLs. Never change it after the first boot.",
+          "defaultValue": "${{secret(20, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}"
+        },
+        "HASHIDS_LENGTH": {
+          "isOptional": false,
+          "description": "Length of the short server ids.",
+          "defaultValue": "8"
+        },
+        "APP_ENV": {
+          "isOptional": false,
+          "description": "Laravel environment. Do not change.",
+          "defaultValue": "production"
+        },
+        "APP_ENVIRONMENT_ONLY": {
+          "isOptional": false,
+          "description": "false lets the admin area save settings such as mail to the database.",
+          "defaultValue": "false"
+        },
+        "DB_CONNECTION": {
+          "isOptional": false,
+          "description": "Database driver. Do not change.",
+          "defaultValue": "mysql"
+        },
+        "DB_HOST": {
+          "isOptional": false,
+          "description": "MariaDB host on the private network.",
+          "defaultValue": "${{MariaDB.RAILWAY_PRIVATE_DOMAIN}}"
+        },
+        "DB_PORT": {
+          "isOptional": false,
+          "description": "MariaDB port.",
+          "defaultValue": "3306"
+        },
+        "DB_DATABASE": {
+          "isOptional": false,
+          "description": "Database name.",
+          "defaultValue": "${{MariaDB.MARIADB_DATABASE}}"
+        },
+        "DB_USERNAME": {
+          "isOptional": false,
+          "description": "Database user.",
+          "defaultValue": "${{MariaDB.MARIADB_USER}}"
+        },
+        "DB_PASSWORD": {
+          "isOptional": false,
+          "description": "Database password.",
+          "defaultValue": "${{MariaDB.MARIADB_PASSWORD}}"
+        },
+        "REDIS_HOST": {
+          "isOptional": false,
+          "description": "Redis host on the private network.",
+          "defaultValue": "${{Redis.RAILWAY_PRIVATE_DOMAIN}}"
+        },
+        "REDIS_PORT": {
+          "isOptional": false,
+          "description": "Redis port.",
+          "defaultValue": "6379"
+        },
+        "REDIS_PASSWORD": {
+          "isOptional": false,
+          "description": "Redis password.",
+          "defaultValue": "${{Redis.REDIS_PASSWORD}}"
+        },
+        "CACHE_DRIVER": {
+          "isOptional": false,
+          "description": "Cache in Redis. Do not change.",
+          "defaultValue": "redis"
+        },
+        "SESSION_DRIVER": {
+          "isOptional": false,
+          "description": "Sessions in Redis. Do not change.",
+          "defaultValue": "redis"
+        },
+        "QUEUE_CONNECTION": {
+          "isOptional": false,
+          "description": "Job queue in Redis. Do not change.",
+          "defaultValue": "redis"
+        },
+        "MAIL_MAILER": {
+          "isOptional": false,
+          "description": "log writes emails to the log instead of sending them. Set up SMTP later under Admin → Settings → Mail.",
+          "defaultValue": "log"
+        },
+        "TRUSTED_PROXIES": {
+          "isOptional": false,
+          "description": "Trusts Railway's proxy, so the panel sees https and real client addresses. Do not change.",
+          "defaultValue": "*"
+        },
+        "PORT": {
+          "isOptional": false,
+          "description": "Port of the panel's web server. Do not change.",
+          "defaultValue": "80"
+        }
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>:80": {
+            "port": 80
+          }
+        },
+        "tcpProxies": {}
+      },
+      "volumeMounts": {
+        "c099a658-9caa-42c1-a256-544715842884": {
+          "mountPath": "/app/var"
+        }
+      }
+    },
+    "6c582c30-956e-4b55-8fa0-791cbc91ac88": {
+      "icon": "https://raw.githubusercontent.com/devicons/devicon/master/icons/mariadb/mariadb-original.svg",
+      "name": "MariaDB",
+      "source": {
+        "image": "mariadb:11.8.9"
+      },
+      "deploy": {
+        "startCommand": "docker-entrypoint.sh mariadbd --datadir=/var/lib/mysql/data --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "variables": {
+        "MARIADB_ROOT_PASSWORD": {
+          "isOptional": false,
+          "description": "Root password.",
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}"
+        },
+        "MARIADB_DATABASE": {
+          "isOptional": false,
+          "description": "Database for the panel.",
+          "defaultValue": "panel"
+        },
+        "MARIADB_USER": {
+          "isOptional": false,
+          "description": "User for the panel.",
+          "defaultValue": "pterodactyl"
+        },
+        "MARIADB_PASSWORD": {
+          "isOptional": false,
+          "description": "Password for the panel's user.",
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}"
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "isOptional": false,
+          "description": "Seconds MariaDB gets to shut down cleanly on a redeploy.",
+          "defaultValue": "60"
+        }
+      },
+      "networking": {
+        "serviceDomains": {},
+        "tcpProxies": {}
+      },
+      "volumeMounts": {
+        "b4d8fe77-dccb-407e-a7f4-73b6c3ca02e4": {
+          "mountPath": "/var/lib/mysql"
+        }
+      }
+    },
+    "3bebfaa6-d9ed-41ee-9d10-35fbf0263d1e": {
+      "icon": "https://devicons.railway.app/i/redis.svg",
+      "name": "Redis",
+      "source": {
+        "image": "redis:8.10.2-alpine"
+      },
+      "deploy": {
+        "startCommand": "/bin/sh -c \"exec docker-entrypoint.sh redis-server --requirepass $REDIS_PASSWORD --save '' --appendonly no\"",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "variables": {
+        "REDIS_PASSWORD": {
+          "isOptional": false,
+          "description": "Redis password.",
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}"
+        }
+      },
+      "networking": {
+        "serviceDomains": {},
+        "tcpProxies": {}
+      }
+    }
+  }
+}

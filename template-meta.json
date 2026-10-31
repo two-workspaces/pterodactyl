@@ -1,0 +1,9 @@
+{
+  "name": "Pterodactyl Panel | Game Server Management (MariaDB + Redis)",
+  "short_name": "Pterodactyl Server Panel",
+  "description": "Pterodactyl game server panel with MariaDB, Redis and a ready admin",
+  "category": "Other",
+  "image": "https://raw.githubusercontent.com/pterodactyl/panel/v1.15.2/public/favicons/android-chrome-512x512.png",
+  "card_desc": "The official Pterodactyl Panel 1.15 for managing Minecraft and other game servers, with MariaDB, Redis, an admin account created on first boot and a guide to connecting your Wings nodes.",
+  "deploy_marker": "two-workspaces/pterodactyl"
+}
