@@ -210,7 +210,7 @@
       "icon": "https://devicons.railway.app/i/redis.svg",
       "name": "Redis",
       "source": {
-        "image": "redis:8.10.2-alpine"
+        "image": "redis:8.10.3-alpine"
       },
       "deploy": {
         "startCommand": "/bin/sh -c \"exec docker-entrypoint.sh redis-server --requirepass $REDIS_PASSWORD --save '' --appendonly no\"",
