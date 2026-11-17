@@ -30,8 +30,8 @@ The panel trusts Railway's proxy, so it sees HTTPS and real client addresses, an
 
 ### Deployment Dependencies
 
-- [Pterodactyl documentation](https://pterodactyl.io/project/introduction.html)
-- [Installing Wings](https://pterodactyl.io/wings/1.0/installing.html)
+- [Pterodactyl documentation](https://docs.pterodactyl.io/v1/project/about)
+- [Installing Wings](https://docs.pterodactyl.io/v1/wings/installing)
 - [Panel on GitHub](https://github.com/pterodactyl/panel)
 - [Template source](https://github.com/two-workspaces/pterodactyl)
 
@@ -47,7 +47,7 @@ The panel trusts Railway's proxy, so it sees HTTPS and real client addresses, an
 
 1. In the panel, go to **Admin → Locations** and create one.
 2. **Admin → Nodes → Create New**: the FQDN is your game machine's domain or IP, with SSL on if Wings will have a certificate.
-3. On the machine, [install Docker and Wings](https://pterodactyl.io/wings/1.0/installing.html), then paste the config from the node's **Configuration** tab into `/etc/pterodactyl/config.yml` and start Wings.
+3. On the machine, [install Docker and Wings](https://docs.pterodactyl.io/v1/wings/installing), then paste the config from the node's **Configuration** tab into `/etc/pterodactyl/config.yml` and start Wings.
 4. Add allocations (IP and ports) to the node, and create your first server under **Admin → Servers**.
 
 Wings calls the panel at `APP_URL`, which is your Railway domain over HTTPS. After adding a custom domain, set `APP_URL` to it and update the node configs.
